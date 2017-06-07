@@ -33,7 +33,7 @@ namespace web1.Controllers
                 }
                 db.SubmitChanges();
             }
-            
+
             if (Request.UrlReferrer != null)
                 return Redirect(Request.UrlReferrer.ToString());
             else
@@ -43,19 +43,16 @@ namespace web1.Controllers
         private Guid GetCartId()
         {
             Guid guid;
-
-            //TODO: Improve this and check TryParse return value
-            if (Request.Cookies.Get("CartId") != null)
+            if (Request.Cookies["CartId"] != null && Guid.TryParse(Request.Cookies["CartId"].Value, out guid))
             {
-                Guid.TryParse(Request.Cookies.Get("CartId").Value, out guid);
+                return guid;
             }
             else
             {
                 guid = Guid.NewGuid();
-                Response.Cookies.Set(new HttpCookie("CartId", guid.ToString()));
+                Response.SetCookie(new HttpCookie("CartId", guid.ToString()));
+                return guid;
             }
-
-            return guid;
         }
     }
 }
