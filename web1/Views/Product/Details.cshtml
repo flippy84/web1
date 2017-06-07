@@ -1,0 +1,22 @@
+﻿@using web1.Models;
+@model Product
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <div>@Model.Name</div>
+        <div>@Model.Description</div>
+        <div>@(Model.PurchasePrice * 2.5M)</div>
+        <div>@Model.Stock</div>
+    </div>
+</body>
+</html>
