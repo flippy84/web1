@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
+using System;
 
 namespace web1.Models
 {
@@ -48,8 +49,8 @@ namespace web1.Models
     [Table]
     public class Cart
     {
-        [Column(IsPrimaryKey = true)] public int CartId;
-        [Column] public int ProductId;
+        [Column(IsPrimaryKey = true)] public Guid CartId;
+        [Column(IsPrimaryKey = true)] public int ProductId;
         [Column] public int Amount;
     }
 }
