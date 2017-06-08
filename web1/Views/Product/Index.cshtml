@@ -16,7 +16,8 @@
         @foreach (var p in Model)
         {
         <tr>
-            <td>@p.Name</td>
+            <td><a href="Product/Details?id=@p.ProductId">@p.Name.Ellipsis(50)</a></td>
+            <td>@p.Description.Ellipsis(100)</td>
             <td>@(p.PurchasePrice * 2.5M)</td>
             <td>@p.Stock</td>
             <td><a href="../Cart/Add?id=@p.ProductId">Add</a></td>

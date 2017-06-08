@@ -4,6 +4,8 @@
     Layout = null;
 }
 
+<!-- TODO: Make add to cart asynchronous -->
+
 <!DOCTYPE html>
 
 <html>
@@ -12,11 +14,15 @@
     <title></title>
 </head>
 <body>
-    <div>
-        <div>@Model.Name</div>
-        <div>@Model.Description</div>
-        <div>@(Model.PurchasePrice * 2.5M)</div>
-        <div>@Model.Stock</div>
-    </div>
+    @Model.Name
+    <p>
+        @Model.Description
+    </p>
+    <p>
+        Price: @(Model.PurchasePrice * 2.5M)<br />
+        Stock: @Model.Stock<br />
+        <a href="../Cart/Add?id=@Model.ProductId">Add to cart</a><br />
+        <a href="../Product">Back</a>
+    </p>
 </body>
 </html>
