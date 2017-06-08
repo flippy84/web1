@@ -30,12 +30,4 @@ namespace web1.Controllers
             return RedirectToAction("Index");
         }
     }
-
-    public static class Extensions
-    {
-        public static IQueryable<T> Page<T>(this IQueryable<T> query, int page)
-        {
-            return query.Skip((page - 1) * 10).Take(10);
-        }
-    }
 }
