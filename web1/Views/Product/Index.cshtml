@@ -1,20 +1,9 @@
 ﻿@using web1.Models;
 @model List<Product>
-@{
-    Layout = null;
-}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <table>
-        @foreach (var p in Model)
-        {
+<table>
+    @foreach (var p in Model)
+    {
         <tr>
             <td><a href="Product/Details?id=@p.ProductId">@p.Name.Ellipsis(50)</a></td>
             <td>@p.Description.Ellipsis(100)</td>
@@ -22,7 +11,5 @@
             <td>@p.Stock</td>
             <td><a href="../Cart/Add?id=@p.ProductId">Add</a></td>
         </tr>
-        }
-    </table>
-</body>
-</html>
+    }
+</table>

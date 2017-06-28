@@ -1,28 +1,15 @@
 ﻿@using web1.Models;
 @model Product
-@{
-    Layout = null;
-}
 
 <!-- TODO: Make add to cart asynchronous -->
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    @Model.Name
-    <p>
-        @Model.Description
-    </p>
-    <p>
-        Price: @(Model.PurchasePrice * 2.5M)<br />
-        Stock: @Model.Stock<br />
-        <a href="../Cart/Add?id=@Model.ProductId">Add to cart</a><br />
-        <a href="../Product">Back</a>
-    </p>
-</body>
-</html>
+@Model.Name
+<p>
+    @Model.Description
+</p>
+<p>
+    Price: @(Model.PurchasePrice * 2.5M)<br />
+    Stock: @Model.Stock<br />
+    <a href="../Cart/Add?id=@Model.ProductId">Add to cart</a><br />
+    <a href="../Product">Back</a>
+</p>

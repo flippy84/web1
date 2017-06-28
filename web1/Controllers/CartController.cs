@@ -40,6 +40,16 @@ namespace web1.Controllers
                 return RedirectToAction("Index", "Product");
         }
 
+        public ActionResult Inline()
+        {
+            Guid id = CreateOrGetCartID();
+            using (BookshopDatabase db = new BookshopDatabase())
+            {
+                var items = from item in db.Carts join product in db.Products on item.ProductId equals product.ProductId where item.CartId == id select product;
+            }
+            return View();
+        }
+
         private Guid CreateOrGetCartID()
         {
             string cartIDKey = "CartID";
