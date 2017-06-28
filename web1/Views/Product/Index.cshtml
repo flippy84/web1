@@ -2,14 +2,24 @@
 @model List<Product>
 
 <table>
-    @foreach (var p in Model)
-    {
+    <thead>
         <tr>
-            <td><a href="Product/Details?id=@p.ProductId">@p.Name.Ellipsis(50)</a></td>
-            <td>@p.Description.Ellipsis(100)</td>
-            <td>@(p.PurchasePrice * 2.5M)</td>
-            <td>@p.Stock</td>
-            <td><a href="../Cart/Add?id=@p.ProductId">Add</a></td>
+            <td><b>Title</b></td>
+            <td><b>Description</b></td>
+            <td><b>Price</b></td>
+            <td><b>In stock</b></td>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td><a href="Product/Details?id=@p.ProductId">@p.Name.Ellipsis(50)</a></td>
+                <td>@p.Description.Ellipsis(100)</td>
+                <td align="right">@(p.PurchasePrice * 2.5M)</td>
+                <td align="right">@p.Stock</td>
+                <td><a href="../Cart/Add?id=@p.ProductId">Add to cart</a></td>
+            </tr>
+        }
+    </tbody>
 </table>

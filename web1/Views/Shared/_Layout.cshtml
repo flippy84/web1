@@ -3,30 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My ASP.NET Application</title>
+    <title>My bookshop: Computers & technology books</title>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div>
-            <div>
-                <ul>
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-            <div>
-                @Html.Action("Inline", "Cart")
-            </div>
-        </div>
-    </div>
-    <div>
-        @Styles.Render("~/bundles/bootstrap")
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <header>
+        @Html.ActionLink("Home", "Index", "Home")
+        &nbsp;|&nbsp;
+        @Html.ActionLink("Books", "Index", "Product")
+        &nbsp;|&nbsp;
+        @Html.Action("Inline", "Cart")
+    </header>
+    <hr />
+
+    @RenderBody()
+
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My bookshop</p>
+    </footer>
 </body>
 </html>

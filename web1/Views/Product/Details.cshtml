@@ -3,13 +3,15 @@
 
 <!-- TODO: Make add to cart asynchronous -->
 
-@Model.Name
+<b>@Model.Name</b>
 <p>
     @Model.Description
 </p>
 <p>
-    Price: @(Model.PurchasePrice * 2.5M)<br />
-    Stock: @Model.Stock<br />
+    <b>Price:</b> @(Model.PurchasePrice * 2.5M)<br />
+    <b>Stock:</b> @Model.Stock<br />
+</p>
+<p>
     <a href="../Cart/Add?id=@Model.ProductId">Add to cart</a><br />
     <a href="../Product">Back</a>
 </p>
