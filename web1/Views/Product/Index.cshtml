@@ -14,11 +14,11 @@
         @foreach (var p in Model)
         {
             <tr>
-                <td><a title="@p.Name" href="Product/Details?id=@p.ProductId">@p.Name.Ellipsis(50)</a></td>
+                <td>@Html.ActionLink(p.Name.Ellipsis(50), "Details", new { id = p.ProductId }, new { title = p.Name})</td>
                 <td>@p.Description.Ellipsis(100)</td>
                 <td align="right">@(p.PurchasePrice * 2.5M)</td>
                 <td align="right">@p.Stock</td>
-                <td><a href="../Cart/Add?id=@p.ProductId">Add to cart</a></td>
+                <td>@Html.ActionLink("Add to cart", "Add", "Cart", new { id = p.ProductId }, null)</td>
             </tr>
         }
     </tbody>

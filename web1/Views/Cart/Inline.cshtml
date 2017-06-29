@@ -27,7 +27,7 @@ else
             {
                 var price = p.Item1.PurchasePrice * 2.5M;
                 <tr>
-                    <td><a title="@p.Item1.Name" href="../Product/Details?id=@p.Item1.ProductId">@p.Item1.Name.Ellipsis(20)</a></td>
+                    <td>@Html.ActionLink(p.Item1.Name.Ellipsis(20), "Details", "Product", new { id = p.Item1.ProductId }, new { title = p.Item1.Name })</td>
                     <td align="right">@p.Item2.Amount x @price kr</td>
                     <td align="right">@(price * p.Item2.Amount) kr</td>
                 </tr>

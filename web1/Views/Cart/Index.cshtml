@@ -23,9 +23,10 @@ else
             @foreach (var p in Model)
             {
                 <tr>
-                    <td><a href="../Product/Details?id=@p.Item1.ProductId" title="@p.Item1.Name">@p.Item1.Name.Ellipsis(50)</a></td>
+                    <td>@Html.ActionLink(p.Item1.Name.Ellipsis(50), "Details", "Product", new { id = p.Item1.ProductId }, new { title = p.Item1.Name })</td>
                     <td align="right">@(p.Item1.PurchasePrice * 2.5M) kr</td>
-                    <td align="right"><form action="Cart/Remove" style="display: inline-block;"><button type="submit" name="id" value="@p.Item1.ProductId">-</button></form> @p.Item2.Amount <form action="Cart/Add" style="display: inline-block;"><button type="submit" name="id" value="@p.Item1.ProductId">+</button></form></td>
+                    <td align="right">
+                    <form action="/Cart/Remove" style="display: inline-block;"><button type="submit" name="id" value="@p.Item1.ProductId">-</button></form> @p.Item2.Amount <form action="/Cart/Add" style="display: inline-block;"><button type="submit" name="id" value="@p.Item1.ProductId">+</button></form></td>
                     <td align="right">@(p.Item1.PurchasePrice * 2.5M * p.Item2.Amount) kr</td>
                 </tr>
                 total += p.Item1.PurchasePrice * p.Item2.Amount * 2.5M;
