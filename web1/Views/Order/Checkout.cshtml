@@ -1,0 +1,39 @@
+﻿@using web1.Models
+@model OrderDetails
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false)
+    <table>
+        <tr>
+            <td>@Html.LabelFor(m => m.Firstname)</td>
+            <td>@Html.TextBoxFor(m => m.Firstname)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Lastname)</td>
+            <td>@Html.TextBoxFor(m => m.Lastname)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.PostAddress)</td>
+            <td>@Html.TextBoxFor(m => m.PostAddress)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.PostCode)</td>
+            <td>@Html.TextBoxFor(m => m.PostCode)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.PostTown)</td>
+            <td>@Html.TextBoxFor(m => m.PostTown)</td>
+        <tr>
+            <td>@Html.LabelFor(m => m.Email)</td>
+            <td>@Html.TextBoxFor(m => m.Email)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.PhoneNumber)</td>
+            <td>@Html.TextBoxFor(m => m.PhoneNumber)</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Checkout" /></td>
+        </tr>
+    </table>    
+}

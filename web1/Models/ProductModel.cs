@@ -41,9 +41,11 @@ namespace web1.Models
         [Column(IsPrimaryKey = true)] public int OrderId;
         [Column] public string Firstname;
         [Column] public string Lastname;
-        [Column] public string Address;
+        [Column] public string PostAddress;
+        [Column] public string PostCode;
         [Column] public string PostTown;
-        [Column] public string PostalCode;
+        [Column] public string Email;
+        [Column] public string PhoneNumber;
     }
 
     [Table]
