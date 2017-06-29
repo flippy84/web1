@@ -1,7 +1,38 @@
 ﻿@using web1.Models;
-@model List<Product>
+@model List<Tuple<Product, Cart>>
+@{ decimal total = 0; }
 
-@foreach(Product p in Model)
+<h2>Your shopping cart</h2>
+
+@if (Model.Count == 0)
 {
-
+    <p>Empty cart</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <td><b>Title</b></td>
+                <td><b>Price</b></td>
+                <td><b>Quantity</b></td>
+                <td><b>Total</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td><a href="../Product/Details?id=@p.Item1.ProductId" title="@p.Item1.Name">@p.Item1.Name.Ellipsis(50)</a></td>
+                    <td align="right">@(p.Item1.PurchasePrice * 2.5M) kr</td>
+                    <td align="right"><form action="Cart/Remove" style="display: inline-block;"><button type="submit" name="id" value="@p.Item1.ProductId">-</button></form> @p.Item2.Amount <form action="Cart/Add" style="display: inline-block;"><button type="submit" name="id" value="@p.Item1.ProductId">+</button></form></td>
+                    <td align="right">@(p.Item1.PurchasePrice * 2.5M * p.Item2.Amount) kr</td>
+                </tr>
+                total += p.Item1.PurchasePrice * p.Item2.Amount * 2.5M;
+            }
+        </tbody>
+    </table>
+    <p>
+        <b>Total: </b>@total kr
+    </p>
 }

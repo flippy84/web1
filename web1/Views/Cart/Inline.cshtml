@@ -1,5 +1,44 @@
-﻿@{
+﻿@using web1.Models;
+@model List<Tuple<Product, Cart>>
+@{
     Layout = null;
 }
 
-@Html.ActionLink("Cart", "Index", "Cart")
+@{ decimal total = 0; }
+
+<h2>Shopping cart</h2>
+
+@if (Model.Count == 0)
+{
+    <p>Empty cart</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <td><b>Title</b></td>
+                <td align="right" width="100"><b>Quantity & price</b></td>
+                <td align="right" width="100"><b>Total</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                var price = p.Item1.PurchasePrice * 2.5M;
+                <tr>
+                    <td><a title="@p.Item1.Name" href="../Product/Details?id=@p.Item1.ProductId">@p.Item1.Name.Ellipsis(20)</a></td>
+                    <td align="right">@p.Item2.Amount x @price kr</td>
+                    <td align="right">@(price * p.Item2.Amount) kr</td>
+                </tr>
+                total += price * p.Item2.Amount;
+            }
+        </tbody>
+    </table>
+
+    <p>
+        <b>Total: </b>@total kr
+    </p>
+}
+
+@Html.ActionLink("Detailed cart", "Index", "Cart")
