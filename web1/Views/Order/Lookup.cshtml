@@ -1,0 +1,6 @@
+﻿@using (Html.BeginForm("Details", "Order", FormMethod.Get))
+{
+    @Html.Label("Order id: ")
+    @Html.TextBox("id")
+    <input type="submit" value="Lookup order" />
+}

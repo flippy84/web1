@@ -191,6 +191,8 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Order\Checkout.cshtml" />
     <Content Include="Views\Order\Done.cshtml" />
+    <Content Include="Views\Order\Lookup.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

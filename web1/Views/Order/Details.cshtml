@@ -1,0 +1,20 @@
+﻿@using web1.Models
+@model Tuple<int, List<Product>>
+
+<h2>These are your ordered books for order #@Model.Item1</h2>
+
+<table>
+    <thead>
+        <tr>
+            <td><b>Name</b></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.Item2)
+        {
+            <tr>
+                <td>@Html.ActionLink(@p.Name, "Details", "Product", new { id = @p.ProductId }, null)</td>
+            </tr>
+        }
+    </tbody>
+</table>

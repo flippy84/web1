@@ -14,6 +14,23 @@ namespace web1.Controllers
             return View();
         }
 
+        public ActionResult Lookup()
+        {
+            return View();
+        }
+        
+        public ActionResult Details(int ?id)
+        {
+            if (id == null)
+                return RedirectToAction("Lookup");
+
+            BookshopDatabase db = new BookshopDatabase();
+            
+            var items = from r in db.OrderRows join p in db.Products on r.ProductId equals p.ProductId where r.OrderId == id.Value select p;
+
+            return View(Tuple.Create(id.Value, items.ToList()));
+        }
+
         [HttpPost]
         public ActionResult Checkout(OrderDetails orderDetails)
         {
