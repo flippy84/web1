@@ -19,14 +19,62 @@ namespace web1.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Done");
+                BookshopDatabase db = new BookshopDatabase();
+                Order order = new Order(orderDetails);
+                var guid = CreateOrGetCartID();
+
+                var cartItems = (from i in db.Carts where i.CartId == guid select i).ToList();
+                var stockItems = (from i in db.Carts join p in db.Products on i.ProductId equals p.ProductId select p).ToList();
+
+                for (int i = 0; i < cartItems.Count(); i++)
+                {
+                    if (cartItems[i].Amount <= stockItems[i].Stock)
+                    {
+                        stockItems[i].Stock -= cartItems[i].Amount;
+                    }
+                    else
+                    {
+                        return View(orderDetails);
+                    }
+                }
+
+                db.Orders.InsertOnSubmit(order);
+                db.SubmitChanges();
+
+                for (int i = 0; i < cartItems.Count(); i++)
+                {
+                    db.OrderRows.InsertOnSubmit(new OrderRow(order.OrderId, cartItems[i].ProductId, cartItems[i].Amount));
+                }
+
+                db.Carts.DeleteAllOnSubmit(cartItems);
+                db.SubmitChanges();
+
+                return RedirectToAction("Done", new { id = order.OrderId });
             }
+
             return View(orderDetails);
         }
         
         public ActionResult Done(int? id)
         {
-            return View();
+            return View(id);
+        }
+
+        private Guid CreateOrGetCartID()
+        {
+            string cartIDKey = "CartID";
+            Guid guid;
+
+            if (Request.Cookies[cartIDKey] != null && Guid.TryParse(Request.Cookies[cartIDKey].Value, out guid))
+            {
+                return guid;
+            }
+            else
+            {
+                guid = Guid.NewGuid();
+                Response.SetCookie(new HttpCookie(cartIDKey, guid.ToString()));
+                return guid;
+            }
         }
     }
 }

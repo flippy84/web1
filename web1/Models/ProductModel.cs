@@ -23,6 +23,7 @@ namespace web1.Models
         public Table<Product> Products;
         public Table<Order> Orders;
         public Table<Cart> Carts;
+        public Table<OrderRow> OrderRows;
     }
 
     [Table]
@@ -38,7 +39,20 @@ namespace web1.Models
     [Table]
     public class Order
     {
-        [Column(IsPrimaryKey = true)] public int OrderId;
+        public Order(OrderDetails details)
+        {
+            Firstname = details.Firstname;
+            Lastname = details.Lastname;
+            PostAddress = details.PostAddress;
+            PostCode = details.PostCode;
+            PostTown = details.PostTown;
+            Email = details.Email;
+            PhoneNumber = details.PhoneNumber;
+        }
+
+        public Order() { }
+
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)] public int OrderId;
         [Column] public string Firstname;
         [Column] public string Lastname;
         [Column] public string PostAddress;
@@ -46,6 +60,23 @@ namespace web1.Models
         [Column] public string PostTown;
         [Column] public string Email;
         [Column] public string PhoneNumber;
+    }
+
+    [Table]
+    public class OrderRow
+    {
+        public OrderRow(int orderId, int productId, int quantity)
+        {
+            OrderId = orderId;
+            ProductId = productId;
+            Quantity = quantity;
+        }
+
+        public OrderRow() { }
+
+        [Column(IsPrimaryKey = true)] public int OrderId;
+        [Column(IsPrimaryKey = true)] public int ProductId;
+        [Column] public int Quantity;    
     }
 
     [Table]
