@@ -44,6 +44,25 @@ namespace web1.Controllers
                 return RedirectToAction("Index", "Product");
         }
 
+        public ActionResult Suggestions()
+        {
+            var guid = CreateOrGetCartID();
+            var db = new BookshopDatabase();
+
+            var related = from cart in db.Carts
+                          where cart.CartId == guid
+                          join r1 in db.OrderRows on cart.ProductId equals r1.ProductId
+                          select r1 into rows
+                          from r2 in db.OrderRows
+                          where r2.OrderId == rows.OrderId && r2.ProductId != rows.ProductId
+                          select r2 into products
+                          from p in db.Products
+                          where p.ProductId == products.ProductId
+                          select p;
+
+            return View(related.Count() > 0 ? related.ToList() : new List<Product>());
+        }
+
         public ActionResult Remove(int? id)
         {
             if (id != null)

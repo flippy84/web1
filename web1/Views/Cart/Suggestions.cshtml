@@ -1,0 +1,16 @@
+﻿@{
+    Layout = null;
+}
+@using web1.Models
+@model List<Product>
+
+<h2>You might also be interested in:</h2>
+
+<table>
+    <tr>
+        @foreach (var p in Model)
+        {
+            <td>@Html.ActionLink(p.Name.Ellipsis(30), "Details", "Product", new { id = p.ProductId }, new { title = p.Name })</td>
+        }
+    </tr>
+</table>
