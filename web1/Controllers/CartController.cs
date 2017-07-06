@@ -49,7 +49,22 @@ namespace web1.Controllers
             var guid = CreateOrGetCartID();
             var db = new BookshopDatabase();
 
-            var related = from cart in db.Carts
+            var products = db.Carts
+                .Where(x => x.CartId == guid)
+                .Select(x => x.ProductId);
+
+            var orders = db.Carts
+                .Join(db.OrderRows, x => x.ProductId, y => y.ProductId, (x, y) => y.OrderId)
+                .Distinct();
+
+            var related = db.OrderRows
+                .Join(db.Products, i => i.ProductId, j => j.ProductId, (i, j) => new { i, j })
+                .Where(x => orders.Contains(x.i.OrderId))
+                .Where(x => !products.Contains(x.i.ProductId))
+                .Select(x => x.j);
+
+
+            /*var related = from cart in db.Carts
                           where cart.CartId == guid
                           join r1 in db.OrderRows on cart.ProductId equals r1.ProductId
                           select r1 into rows
@@ -58,7 +73,7 @@ namespace web1.Controllers
                           select r2 into products
                           from p in db.Products
                           where p.ProductId == products.ProductId
-                          select p;
+                          select p;*/
 
             return View(related.Count() > 0 ? related.ToList() : new List<Product>());
         }
