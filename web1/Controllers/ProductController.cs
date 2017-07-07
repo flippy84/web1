@@ -12,20 +12,14 @@ namespace web1.Controllers
     {
         public ActionResult Index()
         {
-            BookshopDatabase d = new BookshopDatabase();
-            var products = from p in d.Products select p;
-
-            return View(products.ToList());
+            return View(new ProductModel().GetProducts());
         }
 
         public ActionResult Details(int? id)
         {
             if (id != null)
             {
-                BookshopDatabase db = new BookshopDatabase();
-                var product = (from p in db.Products where p.ProductId == id select p).SingleOrDefault();
-
-                return View(product);
+                return View(new ProductModel().GetDetails(id.Value));
             }
             return RedirectToAction("Index");
         }
