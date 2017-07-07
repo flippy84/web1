@@ -156,6 +156,7 @@
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\OrderDetailModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

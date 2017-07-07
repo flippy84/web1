@@ -88,7 +88,7 @@ namespace web1.Models
 
         }
 
-        private Guid GetCartID(Controller controller)
+        public Guid GetCartID(Controller controller)
         {
             string cartIdKey = "CartID";
             Guid cartId;
