@@ -17,7 +17,7 @@ namespace web1.Models
             using (var transaction = new TransactionScope())
             {
                 order = new Order(orderDetails);
-                var cartId = new CartModel().GetCartID(controller);
+                var cartId = new CartModel().GetCartId(controller);
 
                 var cartItems = (from i in db.Carts where i.CartId == cartId select i).ToList();
                 var stockItems = (from i in db.Carts join p in db.Products on i.ProductId equals p.ProductId select p).ToList();

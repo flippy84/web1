@@ -13,7 +13,7 @@ namespace web1.Models
             if (id != null)
             {
                 BookshopDatabase db = new BookshopDatabase();
-                var cartId = GetCartID(controller);
+                var cartId = GetCartId(controller);
                 var row = from r in db.Carts where r.CartId == cartId && r.ProductId == id select r;
 
                 if (row.Any())
@@ -35,7 +35,7 @@ namespace web1.Models
             if (id != null)
             {
                 BookshopDatabase db = new BookshopDatabase();
-                var cartId = GetCartID(controller);
+                var cartId = GetCartId(controller);
                 var row = from r in db.Carts where r.CartId == cartId && r.ProductId == id select r;
 
                 if (row.Any())
@@ -57,7 +57,7 @@ namespace web1.Models
 
         public List<Product> GetSuggestions(Controller controller)
         {
-            var cartId = GetCartID(controller);
+            var cartId = GetCartId(controller);
             var db = new BookshopDatabase();
 
             var products = db.Carts
@@ -79,7 +79,7 @@ namespace web1.Models
 
         public List<Tuple<Product, Cart>> GetContents(Controller controller)
         {
-            var cartId = GetCartID(controller);
+            var cartId = GetCartId(controller);
             BookshopDatabase db = new BookshopDatabase();
 
             var rows = from r in db.Carts join product in db.Products on r.ProductId equals product.ProductId where r.CartId == cartId select Tuple.Create(product, r);
@@ -88,7 +88,7 @@ namespace web1.Models
 
         }
 
-        public Guid GetCartID(Controller controller)
+        public Guid GetCartId(Controller controller)
         {
             string cartIdKey = "CartID";
             Guid cartId;
