@@ -33,7 +33,7 @@ namespace web1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Checkout(OrderDetails orderDetails)
+        public ActionResult Checkout(OrderDetailModel orderDetails)
         {
             if (ModelState.IsValid)
             {
