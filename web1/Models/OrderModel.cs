@@ -30,9 +30,12 @@ namespace web1.Models
                     }
                     else
                     {
-                        return null;
+                        controller.ModelState.AddModelError("OutOfStockError", string.Format("The book \"{0}\" is out of stock", stockItems[i].Name));
                     }
                 }
+
+                if (controller.ModelState.IsValid == false)
+                    return null;
 
                 db.Orders.InsertOnSubmit(order);
                 db.SubmitChanges();
