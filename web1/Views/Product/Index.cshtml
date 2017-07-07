@@ -18,7 +18,7 @@
                 <td>@p.Description.Ellipsis(100)</td>
                 <td align="right">@(p.PurchasePrice * 2.5M)</td>
                 <td align="right">@p.Stock</td>
-                <td>@Html.ActionLink("Add to cart", "Add", "Cart", new { id = p.ProductId }, null)</td>
+                <td>@(p.Stock == 0 ? new HtmlString("Out of stock") : Html.ActionLink("Add to cart", "Add", "Cart", new { id = p.ProductId }, null))</td>
             </tr>
         }
     </tbody>

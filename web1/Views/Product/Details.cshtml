@@ -10,7 +10,7 @@
     <b>Stock:</b> @Model.Stock<br />
 </p>
 <p>
-    @Html.ActionLink("Add to cart", "Add", "Cart", new { id = Model.ProductId }, null)
+    @(Model.Stock == 0 ? new HtmlString("Out of stock") : Html.ActionLink("Add to cart", "Add", "Cart", new { id = Model.ProductId }, null))
     <br />
     @Html.ActionLink("Back", "Index", "Product")
 </p>
