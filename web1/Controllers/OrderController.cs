@@ -25,11 +25,7 @@ namespace web1.Controllers
             if (id == null)
                 return RedirectToAction("Lookup");
 
-            BookshopDatabase db = new BookshopDatabase();
-            
-            var items = from r in db.OrderRows join p in db.Products on r.ProductId equals p.ProductId where r.OrderId == id.Value select p;
-
-            return View(Tuple.Create(id.Value, items.ToList()));
+            return View(new OrderModel().GetDetails(id.Value));
         }
 
         [HttpPost]
@@ -37,43 +33,9 @@ namespace web1.Controllers
         {
             if (ModelState.IsValid)
             {
-                BookshopDatabase db = new BookshopDatabase();
-                Order order;
-
-                using (var transaction = new TransactionScope())
-                {
-                    order = new Order(orderDetails);
-                    var guid = CreateOrGetCartID();
-
-                    var cartItems = (from i in db.Carts where i.CartId == guid select i).ToList();
-                    var stockItems = (from i in db.Carts join p in db.Products on i.ProductId equals p.ProductId select p).ToList();
-
-                    for (int i = 0; i < cartItems.Count(); i++)
-                    {
-                        if (cartItems[i].Amount <= stockItems[i].Stock)
-                        {
-                            stockItems[i].Stock -= cartItems[i].Amount;
-                        }
-                        else
-                        {
-                            return View(orderDetails);
-                        }
-                    }
-
-                    db.Orders.InsertOnSubmit(order);
-                    db.SubmitChanges();
-
-                    for (int i = 0; i < cartItems.Count(); i++)
-                    {
-                        db.OrderRows.InsertOnSubmit(new OrderRow(order.OrderId, cartItems[i].ProductId, cartItems[i].Amount));
-                    }
-
-                    db.Carts.DeleteAllOnSubmit(cartItems);
-                    db.SubmitChanges();
-                    transaction.Complete();
-                }
-
-                return RedirectToAction("Done", new { id = order.OrderId });
+                int? orderId = new OrderModel().Add(this, orderDetails);
+                if (orderId != null)
+                    return RedirectToAction("Done", new { id = orderId });
             }
 
             return View(orderDetails);
@@ -82,23 +44,6 @@ namespace web1.Controllers
         public ActionResult Done(int? id)
         {
             return View(id);
-        }
-
-        private Guid CreateOrGetCartID()
-        {
-            string cartIDKey = "CartID";
-            Guid guid;
-
-            if (Request.Cookies[cartIDKey] != null && Guid.TryParse(Request.Cookies[cartIDKey].Value, out guid))
-            {
-                return guid;
-            }
-            else
-            {
-                guid = Guid.NewGuid();
-                Response.SetCookie(new HttpCookie(cartIDKey, guid.ToString()));
-                return guid;
-            }
         }
     }
 }
